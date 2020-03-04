@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Suivi de vos frais</string>
+    <string name="retour_accueil">Accueil</string>
+    <string name="icon_frais_hf">Icone pour les frais hors forfait</string>
+    <string name="icon_recap_frais_hf">Icone pour le récapitulatif des frais hors forfait</string>
+    <string name="icon_frais_km">Icone pour les frais kilométriques</string>
+    <string name="euro">€</string>
+    <string name="ajouter">Ajouter</string>
+    <string name="km">Km</string>
+    <string name="plus">+</string>
+    <string name="moins">-</string>
+    <string name="valider">Valider</string>
+    <string name="deux_points">:</string>
+    <string name="title_frais_km">Frais kilométriques</string>
+    <string name="title_frais_hf">Frais hors forfait</string>
+    <string name="motif">Motif :</string>
+    <string name="montant">Montant :</string>
+    <string name="icone_frais_km">Icone des frais kilométriques</string>
+    <string name="icone_frais_repas">Icone des frais de repas</string>
+    <string name="icone_frais_nuitee">Icone des frais de nuitée</string>
+    <string name="icone_frais_etape">Icone des frais d\'étape</string>
+    <string name="icone_frais_hf">Icone des frais hors forfait</string>
+    <string name="icone_recap_hf">Icone du récapitulatif des frais hors forfait</string>
+    <string name="icone_transfert">Icone de la commande de transfert</string>
+    <string name="icone_supp_hf">Icône de suppression d\'une ligne de frais</string>
+</resources>

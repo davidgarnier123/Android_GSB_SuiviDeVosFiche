@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/txtListJour"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/lblListSepare"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="0.5"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:text="@string/deux_points"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txtListMontant"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="1.5"
+        android:gravity="end"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/lblListEuro"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="0.5"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:text="@string/euro"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txtListMotif"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3.5"
+        android:paddingEnd="2dp"
+        android:paddingStart="4dp"
+        android:textSize="20sp" />
+
+    <ImageButton
+        android:id="@+id/cmdSuppHf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="2dp"
+        android:layout_weight="1"
+        android:background="@color/colorAccent"
+        app:srcCompat="@drawable/ic_clear_white_24dp"
+        android:contentDescription="@string/icone_supp_hf" />
+
+</LinearLayout>
