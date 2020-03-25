@@ -34,6 +34,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
                 android:layout_weight="1"
+                android:contentDescription="@string/icon_frais_repas"
                 app:srcCompat="@drawable/frais_repas" />
         </LinearLayout>
 
@@ -92,7 +93,7 @@
             tools:ignore="RtlSymmetry">
 
             <EditText
-                android:id="@+id/txtKm"
+                android:id="@+id/txtRepas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -113,11 +114,11 @@
             tools:ignore="RtlSymmetry">
 
             <TextView
-                android:id="@+id/lblKm"
+                android:id="@+id/lblRepas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:labelFor="@+id/txtKm"
+                android:labelFor="@+id/txtRepas"
                 android:text="@string/repas"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -132,7 +133,7 @@
             tools:ignore="RtlSymmetry">
 
             <Button
-                android:id="@+id/cmdKmPlus"
+                android:id="@+id/cmdRepasPlus"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:gravity="center"
@@ -140,7 +141,7 @@
                 android:textSize="20sp" />
 
             <Button
-                android:id="@+id/cmdKmMoins"
+                android:id="@+id/cmdRepasMoins"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:gravity="center"

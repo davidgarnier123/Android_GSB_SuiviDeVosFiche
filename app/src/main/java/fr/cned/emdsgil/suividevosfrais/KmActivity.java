@@ -119,17 +119,17 @@ public class KmActivity extends AppCompatActivity {
     }
     
     /**
-     * Sur le changement de date : mise à jour de l'affichage de la qte
-     */
-    private void dat_clic() {   	
-    	final DatePicker uneDate = (DatePicker) findViewById(R.id.datKm);
-    	uneDate.init(uneDate.getYear(), uneDate.getMonth(), uneDate.getDayOfMonth(), new OnDateChangedListener(){
+	 * Sur le changement de date : mise à jour de l'affichage de la qte
+	 */
+	private void dat_clic() {
+		final DatePicker uneDate = (DatePicker) findViewById(R.id.datKm);
+		uneDate.init(uneDate.getYear(), uneDate.getMonth(), uneDate.getDayOfMonth(), new OnDateChangedListener(){
 			@Override
 			public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-				valoriseProprietes() ;				
+				valoriseProprietes() ;
 			}
-    	});       	
-    }
+		});
+	}
 
 	/**
 	 * Enregistrement dans la zone de texte et dans la liste de la nouvelle qte, à la date choisie
