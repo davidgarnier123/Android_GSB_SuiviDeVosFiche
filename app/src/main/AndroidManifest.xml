@@ -24,6 +24,9 @@
         <activity android:name=".HfActivity" />
         <activity android:name=".HfRecapActivity" />
         <activity android:name=".KmActivity" />
+        <activity android:name=".RepasActivity" />
+        <activity android:name=".EtapeActivity" />
+        <activity android:name=".NuitActivity" />
     </application>
 
 </manifest>
