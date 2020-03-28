@@ -1,5 +1,6 @@
 package fr.cned.emdsgil.suividevosfrais;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,21 +67,29 @@ public class HfRecapActivity extends AppCompatActivity {
 			// insertion dans la listview
 		}
 		ListView listView = (ListView) findViewById(R.id.lstHfRecap);
-		FraisHfAdapter adapter = new FraisHfAdapter(HfRecapActivity.this, liste) ;
+
+		FraisHfAdapter adapter = new FraisHfAdapter(HfRecapActivity.this, liste, key) ;
 		listView.setAdapter(adapter) ;
+
 	}
-	
+
+
 	/**
 	 * Sur la selection de l'image : retour au menu principal
 	 */
     private void imgReturn_clic() {
     	findViewById(R.id.imgHfRecapReturn).setOnClickListener(new ImageView.OnClickListener() {
     		public void onClick(View v) {
-    			retourActivityPrincipale() ;    		
+    			retourActivityPrincipale() ;
     		}
     	}) ;
     }
 
+	public void addListenerOnButton() {
+
+
+
+	}
     /**
      * Sur le changement de date : mise à jour de l'affichage de la qte
      */

@@ -13,10 +13,12 @@ import java.util.Hashtable;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static MainActivity instance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        instance = this;
         setTitle("GSB : Suivi des frais");
         // récupération des informations sérialisées
         recupSerialize();
@@ -91,4 +93,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
