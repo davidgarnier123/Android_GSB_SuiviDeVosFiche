@@ -3,6 +3,7 @@
 
     <string name="app_name">Suivi de vos frais</string>
     <string name="retour_accueil">Accueil</string>
+    <string name="authentification">Authentification</string>
     <string name="icon_frais_hf">Icone pour les frais hors forfait</string>
     <string name="icon_recap_frais_hf">Icone pour le récapitulatif des frais hors forfait</string>
     <string name="icon_frais_km">Icone pour les frais kilométriques</string>

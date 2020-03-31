@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
         cmdMenu_clic(((ImageButton) findViewById(R.id.cmdNuitee)), NuitActivity.class);
         cmdMenu_clic(((ImageButton) findViewById(R.id.cmdEtape)), EtapeActivity.class);
         cmdMenu_clic(((ImageButton) findViewById(R.id.cmdHfRecap)), HfRecapActivity.class);
-        cmdTransfert_clic();
+        cmdMenu_clic(((ImageButton) findViewById(R.id.cmdTransfert)), AuthActivity.class);
+        //cmdTransfert_clic();
     }
 
     @Override
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // envoi les informations sérialisées vers le serveur
                 // en construction
+
             }
         });
     }
