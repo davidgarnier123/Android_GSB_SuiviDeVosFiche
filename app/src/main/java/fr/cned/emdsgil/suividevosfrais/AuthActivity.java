@@ -97,6 +97,7 @@ public class AuthActivity extends AppCompatActivity {
                            JSONObject ajout = new JSONObject();
                            // Pour chaque mois, je crée un object JSON et j'ajoute les données relatives
                            try {
+                               ajout.put("UserID", Global.userId);
                                ajout.put("date", k);
                                ajout.put("KM", v.getKm());
                                ajout.put("NUI", v.getNuitee());
@@ -123,7 +124,7 @@ public class AuthActivity extends AppCompatActivity {
                            //Ajout de l'objet ajout dans l'arrayJson aenvoyer
                               try{
                                   lesFraisAenvoyer.put(index, ajout);
-                                  System.out.println(lesFraisAenvoyer);
+                                  System.out.println(lesFraisAenvoyer + "ID DE LUTILISATEUR = " + Global.userId);
                                   post(url_to_database, lesFraisAenvoyer, "Sync");
                               } catch (JSONException e){
                                   System.out.println("erreur json");
@@ -201,7 +202,7 @@ public class AuthActivity extends AppCompatActivity {
             else if(typePost == "Sync"){
                 //concatenation de chaine de charactere qui est transmis en POST : $_POST["Auth"] contient un jsonArray
                 data += "&" + URLEncoder.encode(typePost, "UTF-8") + "="
-                        + URLEncoder.encode(jsonArray.toString(), "UTF-8");
+                        + URLEncoder.encode(jsonArray.toString(), "UTF-8") ;
 
             }
 
@@ -239,6 +240,15 @@ public class AuthActivity extends AppCompatActivity {
         }
        System.out.println("La reponse : "  + response);
         if(response.contains("réussie%")){
+
+
+            //Récuperation de l'id de l'utilisateur passé dans la réponse en utilisant le char '%' pour le retrouver
+            int start = response.indexOf('%');
+            int end = response.lastIndexOf('%');
+            String id = response.substring(start+1, end);
+            Global.userId = Integer.parseInt(id);
+
+
             response = "Authentification réussie !";
         } else {
             response = "Echec d'authentification !";

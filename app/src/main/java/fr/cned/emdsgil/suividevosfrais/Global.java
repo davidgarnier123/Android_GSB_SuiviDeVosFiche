@@ -12,6 +12,7 @@ abstract class Global {
 
     // tableau d'informations mémorisées
     public static Hashtable<Integer, FraisMois> listFraisMois = new Hashtable<>();
+    public static Integer userId;
     /* Retrait du type de l'Hashtable (Optimisation Android Studio)
      * Original : Typage explicit =
 	 * public static Hashtable<Integer, FraisMois> listFraisMois = new Hashtable<Integer, FraisMois>();
