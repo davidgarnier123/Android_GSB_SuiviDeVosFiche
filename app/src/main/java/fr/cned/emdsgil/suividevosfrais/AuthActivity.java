@@ -20,6 +20,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -35,12 +36,14 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Map;
 
 public class AuthActivity extends AppCompatActivity {
 
     Button button;
     EditText Name , password;
     ArrayList<String> infoConnect;
+    JSONArray lesFraisAenvoyer;
     private static String url_to_database = "http://192.168.1.11/GSB-server/test.php";
 
     @Override
@@ -52,6 +55,7 @@ public class AuthActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         //initialisation
+        lesFraisAenvoyer = new JSONArray();
         infoConnect = new ArrayList<String>();
         button = (Button) findViewById(R.id.btn_auth);
         Name = (EditText) findViewById(R.id.txtName);
@@ -75,6 +79,60 @@ public class AuthActivity extends AppCompatActivity {
                    //Si l'authentification est réussie
                    if( post(url_to_database, jsonArray, "Auth").contains("réussie") ){
                        Toast.makeText(AuthActivity.this, "Synchronisation en cours !", Toast.LENGTH_LONG).show();
+                       //l'authentification est réussie : l'utilisateur est loggué, je peux lancer l'ajout des frais en base de donnée
+
+
+                       // Récupération de l'objet serialisé
+                       Object lesFrais = Serializer.deSerialize(AuthActivity.this);
+
+                       // Cast de l'objet en Map
+                       Map<Integer, FraisMois> frais = (Map<Integer, FraisMois>) lesFrais;
+
+                       // Parcours de la map pour récupérer les clés qui correspondent à tout les objets de frais stockés en local
+                       for (Map.Entry<Integer, FraisMois> entry : frais.entrySet()) {
+                           Integer k = entry.getKey();
+                           FraisMois v = entry.getValue();
+                           int index = 0;
+
+                           JSONObject ajout = new JSONObject();
+                           // Pour chaque mois, je crée un object JSON et j'ajoute les données relatives
+                           try {
+                               ajout.put("date", k);
+                               ajout.put("KM", v.getKm());
+                               ajout.put("NUI", v.getNuitee());
+                               ajout.put("REP", v.getRepas());
+                               ajout.put("ETP", v.getEtape());
+
+
+                               Integer nbFraisHF = v.getLesFraisHf().size();
+
+                               // je boucle sur les HF et les ajoute dans un JSON object
+                               for (int i = 0; i < nbFraisHF; i++) {
+                                   JSONObject HF = new JSONObject();
+                                   HF.put("Jour", v.getLesFraisHf().get(i).getJour().toString());
+                                   HF.put("Motif", v.getLesFraisHf().get(i).getMotif());
+                                   HF.put("Montant", v.getLesFraisHf().get(i).getMontant().toString());
+                                   // j'ajoute l'objet JSON
+                                   ajout.put("HF" + i, HF);
+                               }
+
+                           } catch (JSONException e) {
+                               System.out.println("Erreur de formatage JSON");
+                           }
+
+                           //Ajout de l'objet ajout dans l'arrayJson aenvoyer
+                              try{
+                                  lesFraisAenvoyer.put(index, ajout);
+                                  System.out.println(lesFraisAenvoyer);
+                                  post(url_to_database, lesFraisAenvoyer, "Sync");
+                              } catch (JSONException e){
+                                  System.out.println("erreur json");
+                              }
+
+                           index++;
+                       }
+
+
                    } else {
                        Toast.makeText(AuthActivity.this, "Erreur d'authentification", Toast.LENGTH_LONG).show();
                    }
@@ -140,6 +198,12 @@ public class AuthActivity extends AppCompatActivity {
                 data += "&" + URLEncoder.encode(typePost, "UTF-8") + "="
                         + URLEncoder.encode(jsonArray.toString(), "UTF-8");
             }
+            else if(typePost == "Sync"){
+                //concatenation de chaine de charactere qui est transmis en POST : $_POST["Auth"] contient un jsonArray
+                data += "&" + URLEncoder.encode(typePost, "UTF-8") + "="
+                        + URLEncoder.encode(jsonArray.toString(), "UTF-8");
+
+            }
 
 
 
@@ -173,7 +237,7 @@ public class AuthActivity extends AppCompatActivity {
             } catch (Exception ex) {
             }
         }
-       // System.out.println("La reponse : "  + response);
+       System.out.println("La reponse : "  + response);
         if(response.contains("réussie%")){
             response = "Authentification réussie !";
         } else {
