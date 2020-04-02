@@ -34,7 +34,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
@@ -44,6 +47,7 @@ public class AuthActivity extends AppCompatActivity {
     EditText Name , password;
     ArrayList<String> infoConnect;
     JSONArray lesFraisAenvoyer;
+    Boolean logged = false;
     private static String url_to_database = "http://192.168.1.11/GSB-server/test.php";
 
     @Override
@@ -80,8 +84,7 @@ public class AuthActivity extends AppCompatActivity {
                    if( post(url_to_database, jsonArray, "Auth").contains("réussie") ){
                        Toast.makeText(AuthActivity.this, "Synchronisation en cours !", Toast.LENGTH_LONG).show();
                        //l'authentification est réussie : l'utilisateur est loggué, je peux lancer l'ajout des frais en base de donnée
-
-
+                        logged = true;
                        // Récupération de l'objet serialisé
                        Object lesFrais = Serializer.deSerialize(AuthActivity.this);
 
@@ -124,8 +127,17 @@ public class AuthActivity extends AppCompatActivity {
                            //Ajout de l'objet ajout dans l'arrayJson aenvoyer
                               try{
                                   lesFraisAenvoyer.put(index, ajout);
-                                  System.out.println(lesFraisAenvoyer + "ID DE LUTILISATEUR = " + Global.userId);
-                                  post(url_to_database, lesFraisAenvoyer, "Sync");
+                                  //DEBUG
+                                  //System.out.println(lesFraisAenvoyer + "ID DE LUTILISATEUR = " + Global.userId);
+
+                                  if( !(post(url_to_database, lesFraisAenvoyer, "Sync").contains("%error%")) ){
+                                      System.out.println("Synchronisation effectuée");
+
+
+
+
+
+                                  }
                               } catch (JSONException e){
                                   System.out.println("erreur json");
                               }
@@ -137,7 +149,30 @@ public class AuthActivity extends AppCompatActivity {
                    } else {
                        Toast.makeText(AuthActivity.this, "Erreur d'authentification", Toast.LENGTH_LONG).show();
                    }
+                    if (logged){
+                        //Je recupere la date du mois actuel
+                        DateFormat dateFormat = new SimpleDateFormat("yyyyMM");
+                        Date date = new Date();
 
+                        //je recupere l'object correspondant à la fiche du mois actuel pour le remettre dans la liste apres suppression des autres fiches
+                        FraisMois moisActuelObject = Global.listFraisMois.get(Integer.parseInt(dateFormat.format(date)));
+
+                        //je vide la liste
+                        Global.listFraisMois.clear();
+
+                        //j'ajoute le mois en cours à la liste
+                        Global.listFraisMois.put(Integer.parseInt(dateFormat.format(date)), moisActuelObject);
+
+                        //DEBUG
+                        //System.out.println(Global.listFraisMois);
+
+                        //Je serialize à nouveau
+                        Serializer.serialize(Global.listFraisMois, MainActivity.instance);
+
+                        Toast.makeText(AuthActivity.this, "Synchronisation terminée !", Toast.LENGTH_LONG).show();
+                    }
+
+                   retourActivityPrincipale();
 
                } catch (IOException e){
                    System.out.println(e.toString());
@@ -250,7 +285,11 @@ public class AuthActivity extends AppCompatActivity {
 
 
             response = "Authentification réussie !";
-        } else {
+
+
+
+        }
+        else {
             response = "Echec d'authentification !";
         }
 
