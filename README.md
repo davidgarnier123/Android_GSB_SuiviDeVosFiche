@@ -6,6 +6,6 @@ Application Android en JAVA : Permet à l'utilisateur de remplir ses fiches de f
 ## Fichiers
 
 
-* Base de donnée : Script SQL dans le dossier /BDD
+* Base de donnée : Script SQL dans le dossier /BDD -> Utilisateur : "JohnDoe" / Password : "admin" 
 * Serveur : Fichiers PHP dans le dossier /PHP
 
